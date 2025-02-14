@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Proposal</title>
+  <style>
+    body {
+      background-image: url('https://i.imgur.com/QoPq8Ms.png'); 
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Brush Script MT', cursive;
+      color: yellow;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      position: relative; 
+    }
+
+    .buttons button {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 2rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    #yesButton {
+      background-color: green;
+    }
+
+    #noButton {
+      background-color: red;
+      position: absolute; 
+      left: 90%; 
+    }
+
+    #yayMessage {
+      display: none;
+      font-size: 3rem;
+      font-family: 'Comic Sans MS', cursive, sans-serif; 
+      color: #ff69b4;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
+      animation: bounce 1s infinite;
+    }
+
+    #additionalText {
+      display: none; 
+      font-size: 2.5rem;
+      font-family: 'Comic Sans MS', cursive, sans-serif; 
+      color: #ff69b4; 
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-top: 10px;
+    }
+
+    #missedYouText {
+      display: none; 
+      font-size: 2.5rem;
+      font-family: 'Comic Sans MS', cursive, sans-serif; 
+      color: #ff69b4; 
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-top: 10px;
+    }
+
+    #additionalText div,
+    #missedYouText {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInSlideUp 1s ease forwards;
+    }
+
+    #additionalText div:nth-child(1) {
+      animation-delay: 0.5s; 
+    }
+
+    #additionalText div:nth-child(2) {
+      animation-delay: 1s; 
+    }
+
+    #missedYouText {
+      animation-delay: 1.5s; 
+    }
+
+    @keyframes fadeInSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .sticker {
+      position: absolute;
+      width: 150px; 
+      height: auto; 
+      display: none; 
+      pointer-events: none;
+    }
+
+    #stickerLeft {
+      top: 20px;
+      left: 20px;
+    }
+
+    #stickerRight {
+      top: 20px; 
+      right: 20px;
+    }
+
+    #explosion {
+      display: none; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: url('https://i.imgur.com/explosion.gif') no-repeat center center;
+      background-size: cover;
+      animation: explode 1s ease-out;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+      }
+    }
+
+    #audioPlayer {
+      display: none; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Will you be my Valentine, Noor?</h1>
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
+    </div>
+    <div id="yayMessage">YAYAYYAYAYAYAYAY she said yessss 💖</div>
+    <div id="additionalText">
+      <div>WOOOHOOO I LOVE YOU SMMM</div>
+      <div>HAPPY VALENTINE MY LIL GIRL :))</div>
+    </div>
+    <div id="missedYouText">I MISSED YOU ALOOOT 💖</div>
+    <!-- Updated sticker URLs -->
+    <img id="stickerLeft" class="sticker" src="https://i.imgur.com/7PbAEP7.png" alt="Sticker">
+    <img id="stickerRight" class="sticker" src="https://i.imgur.com/7PbAEP7.png" alt="Sticker">
+    <div id="explosion"></div>
+    <audio id="audioPlayer" src="https://github.com/kokomizoo/kool/blob/404715399e686a5267e2512d66d9c280e0dfce45/Kool%20%26%20The%20Gang%20-%20Celebration.mp3?raw=true" loop></audio>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+    const yesButton = document.getElementById('yesButton');
+    const yayMessage = document.getElementById('yayMessage');
+    const additionalText = document.getElementById('additionalText');
+    const missedYouText = document.getElementById('missedYouText');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const stickerLeft = document.getElementById('stickerLeft');
+    const stickerRight = document.getElementById('stickerRight');
+    const explosion = document.getElementById('explosion');
+
+    const messages = [
+      "Are you sure? :(",
+      "Think it through :(",
+      "Think about it...",
+      "Still?",
+      "I'm getting annoyed...",
+      "I'm sad now :((("
+    ];
+
+    // Updated sticker URLs for the "No" button
+    const stickerUrls = [
+      "https://i.imgur.com/uOn3qgb.png",
+      "https://i.imgur.com/3HN6S7t.png",
+      "https://i.imgur.com/4C44IFB.png"
+    ];
+
+    let messageIndex = 0; 
+    const noStickers = []; 
+
+    noButton.addEventListener('click', () => {
+      if (messageIndex < messages.length) {
+        noButton.textContent = messages[messageIndex];
+        messageIndex++; 
+      } else {
+        noButton.textContent = "No";
+        messageIndex = 0;
+      }
+
+      const randomStickerUrl = stickerUrls[Math.floor(Math.random() * stickerUrls.length)];
+      const randomSticker = document.createElement('img');
+      randomSticker.src = randomStickerUrl;
+      randomSticker.classList.add('sticker');
+      randomSticker.style.position = 'absolute';
+      randomSticker.style.width = '150px';
+      randomSticker.style.height = 'auto';
+      randomSticker.style.display = 'block';
+      randomSticker.style.pointerEvents = 'none'; 
+
+      const screenWidth = window.innerWidth - 150; 
+      const screenHeight = window.innerHeight - 150; 
+      const randomX = Math.floor(Math.random() * screenWidth);
+      const randomY = Math.floor(Math.random() * screenHeight);
+
+      randomSticker.style.left = `${randomX}px`;
+      randomSticker.style.top = `${randomY}px`;
+
+      document.body.appendChild(randomSticker);
+      noStickers.push(randomSticker);
+    });
+
+    yesButton.addEventListener('click', () => {
+      yayMessage.style.display = 'block';
+      additionalText.style.display = 'block'; 
+      missedYouText.style.display = 'block'; 
+
+      stickerLeft.style.display = 'block';
+      stickerRight.style.display = 'block';
+
+      noStickers.forEach(sticker => sticker.remove());
+      noStickers.length = 0; 
+
+      explosion.style.display = 'block';
+      setTimeout(() => {
+        explosion.style.display = 'none'; 
+      }, 1000); 
+
+      audioPlayer.play();
+
+      const confettiSettings = { target: 'confetti' };
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+
+      yesButton.style.display = 'none';
+      noButton.style.display = 'none';
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</body>
+</html>
